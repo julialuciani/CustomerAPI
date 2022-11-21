@@ -11,7 +11,7 @@ namespace CustomerAPI.Controllers
     public class CustomerController : ControllerBase
     {
         private ICustomerService _service;
-        
+
         public CustomerController(ICustomerService service)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
@@ -25,7 +25,7 @@ namespace CustomerAPI.Controllers
                 _service.Create(customer);
                 return Created("Created", customer);
             }
-            catch(ArgumentNullException exception)
+            catch (ArgumentNullException exception)
             {
                 return BadRequest(exception.Message);
             }
@@ -39,17 +39,16 @@ namespace CustomerAPI.Controllers
                 var customer = _service.GetById(Id);
                 return Ok(customer);
             }
-            catch(ArgumentNullException exception)
+            catch (ArgumentNullException exception)
             {
-                return NotFound(exception.Message);   
-            }           
+                return NotFound(exception.Message);
+            }
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
             var listCustomers = _service.GetAll();
-
             return Ok(listCustomers);
         }
 
@@ -59,10 +58,9 @@ namespace CustomerAPI.Controllers
             try
             {
                 _service.Update(customer);
-
                 return Ok();
             }
-            catch(ArgumentNullException exception)
+            catch (ArgumentNullException exception)
             {
                 return NotFound(exception.Message);
             }
@@ -75,21 +73,15 @@ namespace CustomerAPI.Controllers
         [HttpDelete]
         public IActionResult Delete(long Id)
         {
-          try
+            try
             {
                 _service.Delete(Id);
-
                 return Ok();
-
-            } 
-            catch(ArgumentNullException exception)
+            }
+            catch (ArgumentNullException exception)
             {
                 return NotFound(exception.Message);
-            }       
+            }
         }
     }
 }
-
-
-
-

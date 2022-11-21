@@ -10,9 +10,9 @@ namespace Data.Validators
 {
     public class CustomerValidator : AbstractValidator<Customer>
     {
-        public CustomerValidator() 
+        public CustomerValidator()
         {
-           
+
             RuleFor(customer => customer.FullName)
                 .NotEmpty().WithMessage("Name cannot remain empty")
                 .MinimumLength(4);
@@ -50,7 +50,7 @@ namespace Data.Validators
 
             RuleFor(customer => customer.Number)
                 .NotEmpty().WithMessage("Number cannot remain empty");
-  
+
 
             static bool CpfValIdation(string Cpf)
             {

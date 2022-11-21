@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Data.Entities
 {
-    public class Customer{
+    public class Customer
+    {
         public Customer(
             long id,
             string fullName,
@@ -41,7 +42,6 @@ namespace Data.Entities
             Number = number;
 
         }
-
         public long Id { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
@@ -57,6 +57,4 @@ namespace Data.Entities
         public string Address { get; set; }
         public int Number { get; set; }
     }
-
 }
-

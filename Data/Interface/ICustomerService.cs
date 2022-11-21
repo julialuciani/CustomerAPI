@@ -10,15 +10,10 @@ namespace Data.Services
 {
     public interface ICustomerService
     {
-        public void Create(Customer customer);
-
-        public IEnumerable<Customer> GetAll();
-
-        public Customer GetById(long id);
-        public void Update(Customer customer);
-
-        public void Delete(long id);  
-
-
+        void Create(Customer customer);
+        IEnumerable<Customer> GetAll();
+        Customer GetById(long id);
+        void Update(Customer customer);
+        void Delete(long id);
     }
 }

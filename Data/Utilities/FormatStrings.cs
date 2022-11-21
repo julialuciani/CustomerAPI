@@ -10,17 +10,17 @@ namespace Data.Utilities
     {
         public static string FormatingPostalcode(this string Postalcode)
         {
-           return  Postalcode.Trim().Replace(".", "").Replace("-", "");
+            return Postalcode.Trim().Replace(".", "").Replace("-", "");
         }
 
         public static string FormatingCellphone(this string Cellphone)
         {
-          return  Cellphone.Trim().Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ","");
+            return Cellphone.Trim().Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "");
         }
 
         public static string FormatingCpf(this string Cpf)
         {
-         return Cpf.Trim().Replace(".", "").Replace("-", "");
+            return Cpf.Trim().Replace(".", "").Replace("-", "");
         }
 
     }
