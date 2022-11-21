@@ -4,50 +4,51 @@ namespace Data.Services
 {
     public class CustomerService : ICustomerService
     {
-        private List<Customer> _customerList = new List<Customer>();
+        private List<Customer> _customerList = new();
 
-        public virtual void Create(Customer customer)
+        public void Create(Customer customer)
         {
-            var checkingCustomerCpf = _customerList.FirstOrDefault(customerElement => customerElement.Cpf == customer.Cpf);
-            var checkingCustomerEmail = _customerList.FirstOrDefault(customerElement => customerElement.Email == customer.Email);
-            if (checkingCustomerCpf != null || checkingCustomerEmail != null) throw new ArgumentNullException("Customer already exists");
+            var checkingCustomerCpf = _customerList.Any(customerElement => customerElement.Cpf == customer.Cpf);
+            var checkingCustomerEmail = _customerList.Any(customerElement => customerElement.Email == customer.Email);
+            if (checkingCustomerCpf == true) throw new ArgumentException("Customer with this cpf already exists");
+            if (checkingCustomerEmail == true) throw new ArgumentException("Customer with this email already exists");
 
             customer.Id = _customerList.Count + 1;
             _customerList.Add(customer);
         }
 
-        public virtual IEnumerable<Customer> GetAll()
+        public IEnumerable<Customer> GetAll()
         {
+            if (_customerList.Count == 0) throw new ArgumentException();
             return _customerList;
         }
 
-        public virtual Customer GetById(long Id)
+        public Customer GetById(long Id)
         {
             var customer = _customerList.FirstOrDefault(customer => customer.Id == Id);
             if (customer != null) return customer;
-            throw new ArgumentException("Customer doesn't exist!");
+            throw new ArgumentException($"Customer does not exist for Id: {Id}");
         }
-        public virtual void Update(Customer customer)
+        public void Update(Customer customer)
         {
-            var customerInList = _customerList.FirstOrDefault(element => element.Id == customer.Id);
 
             int customerIndex = _customerList.FindIndex(element => element.Id == customer.Id);
 
-            if (customerIndex == -1) throw new ArgumentNullException("Customer not found with Id: " + customer.Id);
+            if (customerIndex == -1) throw new ArgumentNullException($"Customer not found for Id: {customer.Id}");
 
             if (_customerList.Any((element) => element.Cpf == customer.Cpf && element.Id != customer.Id))
-                throw new ArgumentException("Customer can't have Cpf equal to other customer!");
+                throw new ArgumentException($"Customer for Cpf: {customer.Email} already exists!");
 
             if (_customerList.Any((element) => element.Email == customer.Email && element.Id != customer.Id))
-                throw new ArgumentException("Customer can't have Email equal to other customer!");
+                throw new ArgumentException($"Customer for Email: {customer.Email} already exists!");
 
             _customerList[customerIndex] = customer;
 
         }
-        public virtual void Delete(long Id)
+        public void Delete(long Id)
         {
             int customerId = _customerList.FindIndex(element => element.Id == Id);
-            if (customerId < 0) throw new ArgumentNullException("Customer not found with Id: " + Id);
+            if (customerId < 0) throw new ArgumentNullException($"Customer not found for Id: {Id} ");
             _customerList.RemoveAll(element => element.Id == Id);
         }
     }

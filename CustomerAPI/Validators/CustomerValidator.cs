@@ -1,10 +1,5 @@
 ﻿using Data.Entities;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Validators
 {
@@ -12,88 +7,96 @@ namespace Data.Validators
     {
         public CustomerValidator()
         {
-
             RuleFor(customer => customer.FullName)
-                .NotEmpty().WithMessage("Name cannot remain empty")
+                .NotEmpty()
                 .MinimumLength(4);
 
             RuleFor(customer => customer.Email)
-                .NotEmpty().WithMessage("Email cannot remain empty")
+                .NotEmpty()
                 .EmailAddress().WithMessage("Email is not valId");
 
             RuleFor(customer => customer.EmailConfirmation)
-                .NotEmpty().WithMessage("Confirm Email")
+                .NotEmpty()
                 .Equal(customer => customer.Email).WithMessage("Email confirmation is different than Email");
 
             RuleFor(customer => customer.Cpf)
-                .NotEmpty().WithMessage("Cpf cannot remain empty")
-                .Must(CpfValIdation);
+                .NotEmpty()
+                .Must(IsCpfValid);
 
             RuleFor(customer => customer.Cellphone)
-                .NotEmpty().WithMessage("Cellphone cannot remain empty");
+                .NotEmpty();
 
             RuleFor(customer => customer.DateOfBirth)
-                .NotEmpty().WithMessage("Date_of_birth cannot remain empty")
-                .Must(VerifyAge).WithMessage("Customer cannot be registered if he is a minor");
+                .NotEmpty()
+                .Must(IsOver18).WithMessage("Customer cannot be registered if he is a minor");
 
             RuleFor(customer => customer.Country)
-                .NotEmpty().WithMessage("Country cannot remain empty");
+                .NotEmpty();
 
             RuleFor(customer => customer.City)
-                .NotEmpty().WithMessage("City cannot remain empty");
+                .NotEmpty();
 
             RuleFor(customer => customer.Postalcode)
-                .NotEmpty().WithMessage("Postal cannot remain empty");
+                .NotEmpty();
 
             RuleFor(customer => customer.Address)
-                .NotEmpty().WithMessage("Address cannot remain empty");
+                .NotEmpty();
 
             RuleFor(customer => customer.Number)
-                .NotEmpty().WithMessage("Number cannot remain empty");
+                .NotEmpty();
 
 
-            static bool CpfValIdation(string Cpf)
+             static bool IsCpfValid(string Cpf)
             {
-                int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
-                int[] multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
-                string tempCpf;
-                string digito;
-                int soma;
-                int resto;
-                Cpf = Cpf.Trim();
-                Cpf = Cpf.Replace(".", "").Replace("-", "");
+                int[] mult1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+                int[] mult2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+                string hasCpf;
+                string digit;
+                int sum;
+                int rest;
+
                 if (Cpf.Length != 11)
                     return false;
-                tempCpf = Cpf.Substring(0, 9);
-                soma = 0;
 
-                for (int i = 0; i < 9; i++)
-                    soma += int.Parse(tempCpf[i].ToString()) * multiplicador1[i];
-                resto = soma % 11;
-                if (resto < 2)
-                    resto = 0;
+               hasCpf = Cpf.Substring(0, 9);
+                sum = 0;
+    
+               for (int i = 0; i < 9; i++)
+                    sum += int.Parse(hasCpf[i].ToString()) * mult1[i];
+
+                rest = sum % 11;
+
+                if (rest < 2)
+                    rest = 0;
                 else
-                    resto = 11 - resto;
-                digito = resto.ToString();
-                tempCpf = tempCpf + digito;
-                soma = 0;
+
+                    rest = 11 - rest;
+
+                digit = rest.ToString();
+
+                hasCpf = hasCpf + digit;
+
+                sum = 0;
+
                 for (int i = 0; i < 10; i++)
-                    soma += int.Parse(tempCpf[i].ToString()) * multiplicador2[i];
-                resto = soma % 11;
-                if (resto < 2)
-                    resto = 0;
+                    sum += int.Parse(hasCpf[i].ToString()) * mult2[i];
+
+                rest = sum % 11;
+
+                if (rest < 2)
+                    rest = 0;
                 else
-                    resto = 11 - resto;
-                digito = digito + resto.ToString();
-                return Cpf.EndsWith(digito);
+                    rest = 11 - rest;
+
+                digit = digit + rest.ToString();
+
+                return Cpf.EndsWith(digit);
             }
 
-            static bool VerifyAge(System.DateTime dateOfBirth)
+            static bool IsOver18(System.DateTime dateOfBirth)
             {
                 return dateOfBirth <= System.DateTime.Now.AddYears(-18);
             }
-
-
         }
     }
 }

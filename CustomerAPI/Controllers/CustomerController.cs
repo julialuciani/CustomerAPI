@@ -1,8 +1,6 @@
 ﻿using Data.Entities;
 using Data.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Server.IIS.Core;
-using System;
 
 namespace CustomerAPI.Controllers
 {
@@ -23,9 +21,9 @@ namespace CustomerAPI.Controllers
             try
             {
                 _service.Create(customer);
-                return Created("Created", customer);
+                return Created("Id: ", customer.Id);
             }
-            catch (ArgumentNullException exception)
+            catch (ArgumentException exception)
             {
                 return BadRequest(exception.Message);
             }
@@ -48,8 +46,16 @@ namespace CustomerAPI.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var listCustomers = _service.GetAll();
-            return Ok(listCustomers);
+            try
+            {
+                var listCustomers = _service.GetAll();
+                return Ok(listCustomers);
+             }
+            catch 
+            {
+                return NoContent();
+            }
+
         }
 
         [HttpPut]
@@ -76,7 +82,7 @@ namespace CustomerAPI.Controllers
             try
             {
                 _service.Delete(Id);
-                return Ok();
+                return NoContent();
             }
             catch (ArgumentNullException exception)
             {
