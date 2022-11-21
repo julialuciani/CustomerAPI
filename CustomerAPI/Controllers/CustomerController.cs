@@ -1,4 +1,5 @@
-﻿using Data.Services;
+﻿using Data.Entities;
+using Data.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.IIS.Core;
 using System;
@@ -10,54 +11,82 @@ namespace CustomerAPI.Controllers
     public class CustomerController : ControllerBase
     {
         private ICustomerService _service;
-       
-
+        
         public CustomerController(ICustomerService service)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
-
-            
-
         }
 
         [HttpPost]
-        public void Create(Customer customer)
+        public IActionResult Create(Customer customer)
         {
-            _service.Create(customer);
-
+            try
+            {
+                _service.Create(customer);
+                return Created("Created", customer);
+            }
+            catch(ArgumentNullException exception)
+            {
+                return BadRequest(exception.Message);
+            }
         }
 
-        [HttpGet("{id}")]
-
-        public Customer GetById(long id)
+        [HttpGet("{Id}")]
+        public IActionResult GetById(long Id)
         {
-
-            return _service.GetById(id);
+            try
+            {
+                var customer = _service.GetById(Id);
+                return Ok(customer);
+            }
+            catch(ArgumentNullException exception)
+            {
+                return NotFound(exception.Message);   
+            }           
         }
 
         [HttpGet]
-        public IEnumerable<Customer> GetAll()
+        public IActionResult GetAll()
         {
-            return _service.GetAll();
+            var listCustomers = _service.GetAll();
+
+            return Ok(listCustomers);
         }
 
         [HttpPut]
-        public void Update(Customer customer)
+        public IActionResult Update(Customer customer)
         {
-            _service.Update(customer);  
+            try
+            {
+                _service.Update(customer);
 
+                return Ok();
+            }
+            catch(ArgumentNullException exception)
+            {
+                return NotFound(exception.Message);
+            }
+            catch (ArgumentException exception)
+            {
+                return BadRequest(exception.Message);
+            }
         }
 
         [HttpDelete]
-
-        public void Delete(long id)
+        public IActionResult Delete(long Id)
         {
-            _service.Delete(id);
+          try
+            {
+                _service.Delete(Id);
+
+                return Ok();
+
+            } 
+            catch(ArgumentNullException exception)
+            {
+                return NotFound(exception.Message);
+            }       
         }
-
-    
-
-
     }
 }
 
