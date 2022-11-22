@@ -12,7 +12,9 @@ namespace Data.Services
         public void Create(Customer customer)
         {
             var checkingCustomerCpf = _customerList.Any(customerElement => customerElement.Cpf == customer.Cpf);
+
             var checkingCustomerEmail = _customerList.Any(customerElement => customerElement.Email == customer.Email);
+
             if (checkingCustomerCpf == true) throw new ArgumentException($"Customer for Cpf: {customer.Cpf} already exists!");
 
             if (checkingCustomerEmail == true) throw new ArgumentException($"Customer for Email: {customer.Email} already exists!");
@@ -33,7 +35,7 @@ namespace Data.Services
             if (customer != null) return customer;
             throw new ArgumentException($"Customer not found for Id: {Id}");
         }
-   
+
         public void Update(Customer customer)
         {
             int customerIndex = _customerList.FindIndex(element => element.Id == customer.Id);
@@ -48,7 +50,7 @@ namespace Data.Services
 
             _customerList[customerIndex] = customer;
         }
-  
+
         public void Delete(long Id)
         {
             Customer customer = GetById(Id);
