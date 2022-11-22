@@ -10,8 +10,8 @@ namespace Data.Services
         {
             var checkingCustomerCpf = _customerList.Any(customerElement => customerElement.Cpf == customer.Cpf);
             var checkingCustomerEmail = _customerList.Any(customerElement => customerElement.Email == customer.Email);
-            if (checkingCustomerCpf == true) throw new ArgumentException($"Customer for Cpf: {customer.Cpf} already exists");
-            if (checkingCustomerEmail == true) throw new ArgumentException($"Customer for Email: {customer.Email} already exists");
+            if (checkingCustomerCpf == true) throw new ArgumentException($"Customer for Cpf: {customer.Cpf} already exists!");
+            if (checkingCustomerEmail == true) throw new ArgumentException($"Customer for Email: {customer.Email} already exists!");
 
             customer.Id = _customerList.Count + 1;
             _customerList.Add(customer);
@@ -47,7 +47,7 @@ namespace Data.Services
         }
         public void Delete(long Id)
         {
-            var exists = _customerList.Any(customer => customer.Id == Id);
+            var exists = _customerList.Any(customer => customer.Id == Id);  
             if (!exists) throw new ArgumentNullException($"Customer not found for Id: {Id} ");
             _customerList.RemoveAll(element => element.Id == Id);
         }
