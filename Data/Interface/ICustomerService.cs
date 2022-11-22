@@ -5,7 +5,7 @@ namespace Data.Services
 {
     public interface ICustomerService
     {
-        void Create(Customer customer);
+        long Create(Customer customer);
         IEnumerable<Customer> GetAll();
         Customer GetById(long id);
         void Update(Customer customer);

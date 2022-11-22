@@ -9,7 +9,7 @@ namespace Data.Services
     {
         private List<Customer> _customerList = new();
 
-        public void Create(Customer customer)
+        public long Create(Customer customer)
         {
             var cpfAlreadyExists = _customerList.Any(customerElement => customerElement.Cpf == customer.Cpf);
 
@@ -18,9 +18,12 @@ namespace Data.Services
             var emailAlreadyExists = _customerList.Any(customerElement => customerElement.Email == customer.Email);
 
             if (emailAlreadyExists) throw new ArgumentException($"Customer for Email: {customer.Email} already exists!");
-
+            
             customer.Id = _customerList.LastOrDefault()?.Id + 1 ?? 1;
+
             _customerList.Add(customer);
+
+            return customer.Id;
         }
 
         public IEnumerable<Customer> GetAll()
