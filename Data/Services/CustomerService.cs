@@ -11,13 +11,13 @@ namespace Data.Services
 
         public void Create(Customer customer)
         {
-            var checkingCustomerCpf = _customerList.Any(customerElement => customerElement.Cpf == customer.Cpf);
+            var cpfAlreadyExists = _customerList.Any(customerElement => customerElement.Cpf == customer.Cpf);
 
-            var checkingCustomerEmail = _customerList.Any(customerElement => customerElement.Email == customer.Email);
+            if (cpfAlreadyExists) throw new ArgumentException($"Customer for Cpf: {customer.Cpf} already exists!");
 
-            if (checkingCustomerCpf == true) throw new ArgumentException($"Customer for Cpf: {customer.Cpf} already exists!");
+            var emailAlreadyExists = _customerList.Any(customerElement => customerElement.Email == customer.Email);
 
-            if (checkingCustomerEmail == true) throw new ArgumentException($"Customer for Email: {customer.Email} already exists!");
+            if (emailAlreadyExists) throw new ArgumentException($"Customer for Email: {customer.Email} already exists!");
 
             customer.Id = _customerList.LastOrDefault()?.Id + 1 ?? 1;
             _customerList.Add(customer);
@@ -25,7 +25,6 @@ namespace Data.Services
 
         public IEnumerable<Customer> GetAll()
         {
-            if (_customerList.Count == 0) throw new ArgumentException();
             return _customerList;
         }
 
