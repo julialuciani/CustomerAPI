@@ -55,7 +55,6 @@ namespace CustomerAPI.Controllers
             {
                 return NoContent();
             }
-
         }
 
         [HttpPut]
