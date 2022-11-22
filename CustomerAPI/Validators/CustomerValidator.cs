@@ -99,9 +99,9 @@ namespace Data.Validators
                 return cpf.EndsWith(digit);
             }
 
-            static bool AgeRequirementIsMet(System.DateTime dateOfBirth)
+            static bool AgeRequirementIsMet(DateTime dateOfBirth)
             {
-                return dateOfBirth <= System.DateTime.Now.AddYears(-18);
+                return dateOfBirth <= DateTime.Now.AddYears(-18);
             }
         }
     }
