@@ -1,6 +1,8 @@
 ﻿using Data.Entities;
+using Data.Utilities;
 using FluentValidation;
 using System.Runtime.CompilerServices;
+
 
 namespace Data.Validators
 {
@@ -54,6 +56,8 @@ namespace Data.Validators
                 string digit;
                 int sum;
                 int rest;
+
+                cpf = cpf.FormatingCpf(cpf);
 
                 if (cpf.Length != 11)
                     return false;

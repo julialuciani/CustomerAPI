@@ -14,7 +14,7 @@
                 .Replace(",", "");
         }
       
-        public static string FormatingCpf(this string Cpf)
+        public static string FormatingCpf(this string Cpf, string cpf)
         {
             return Cpf.Trim().Replace(".", "").Replace("-", "").Replace(",", "").Replace(" ", "");
         }

@@ -24,7 +24,7 @@ namespace Data.Entities
             FullName = fullName;
             Email = email;
             EmailConfirmation = emailConfirmation;
-            Cpf = cpf.FormatingCpf();
+            Cpf = cpf.FormatingCpf(cpf);
             Cellphone = cellphone.FormatingCellphone();
             DateOfBirth = dateOfBirth;
             EmailSms = emailSms;
