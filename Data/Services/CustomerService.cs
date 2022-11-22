@@ -14,6 +14,7 @@ namespace Data.Services
             var checkingCustomerCpf = _customerList.Any(customerElement => customerElement.Cpf == customer.Cpf);
             var checkingCustomerEmail = _customerList.Any(customerElement => customerElement.Email == customer.Email);
             if (checkingCustomerCpf == true) throw new ArgumentException($"Customer for Cpf: {customer.Cpf} already exists!");
+
             if (checkingCustomerEmail == true) throw new ArgumentException($"Customer for Email: {customer.Email} already exists!");
 
             customer.Id = _customerList.LastOrDefault()?.Id + 1 ?? 1;
