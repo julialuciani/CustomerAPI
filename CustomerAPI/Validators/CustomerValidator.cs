@@ -3,7 +3,6 @@ using Data.Utilities;
 using FluentValidation;
 using System.Runtime.CompilerServices;
 
-
 namespace Data.Validators
 {
     public class CustomerValidator : AbstractValidator<Customer>

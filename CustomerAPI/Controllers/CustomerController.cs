@@ -83,9 +83,9 @@ namespace CustomerAPI.Controllers
                 _service.Delete(Id);
                 return NoContent();
             }
-            catch (ArgumentNullException exception)
+            catch
             {
-                return NotFound(exception.Message);
+                return NotFound();
             }
         }
     }

@@ -31,12 +31,11 @@ namespace Data.Services
         {
             var customer = _customerList.FirstOrDefault(customer => customer.Id == Id);
             if (customer != null) return customer;
-            throw new ArgumentException($"Customer does not exist for Id: {Id}");
+            throw new ArgumentException($"Customer not found for Id: {Id}");
         }
    
         public void Update(Customer customer)
         {
-
             int customerIndex = _customerList.FindIndex(element => element.Id == customer.Id);
 
             if (customerIndex == -1) throw new ArgumentNullException($"Customer not found for Id: {customer.Id}");
@@ -48,14 +47,12 @@ namespace Data.Services
                 throw new ArgumentException($"Customer for Email: {customer.Email} already exists!");
 
             _customerList[customerIndex] = customer;
-
         }
   
         public void Delete(long Id)
         {
-            var exists = _customerList.Any(customer => customer.Id == Id);  
-            if (!exists) throw new ArgumentNullException($"Customer not found for Id: {Id} ");
-            _customerList.RemoveAll(element => element.Id == Id);
+            Customer customer = GetById(Id);
+            _customerList.Remove(customer);
         }
     }
 }
