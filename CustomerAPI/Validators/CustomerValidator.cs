@@ -28,7 +28,7 @@ namespace Data.Validators
 
             RuleFor(customer => customer.DateOfBirth)
                 .NotEmpty()
-                .Must(IsOver18).WithMessage("'Customer' must be legal age");
+                .Must(IsOver18).WithMessage("'Customer must be legal age");
 
             RuleFor(customer => customer.Country)
                 .NotEmpty();
