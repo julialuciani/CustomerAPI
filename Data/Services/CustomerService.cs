@@ -16,7 +16,7 @@ namespace Data.Services
             if (checkingCustomerCpf == true) throw new ArgumentException($"Customer for Cpf: {customer.Cpf} already exists!");
             if (checkingCustomerEmail == true) throw new ArgumentException($"Customer for Email: {customer.Email} already exists!");
 
-            customer.Id = _customerList.Count + 1;
+            customer.Id = _customerList.LastOrDefault()?.Id + 1 ?? 1;
             _customerList.Add(customer);
         }
 
