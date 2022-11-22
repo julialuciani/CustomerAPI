@@ -1,5 +1,6 @@
 ﻿using Data.Entities;
 using FluentValidation;
+using System.Runtime.CompilerServices;
 
 namespace Data.Validators
 {
@@ -45,7 +46,7 @@ namespace Data.Validators
             RuleFor(customer => customer.Number)
                 .NotEmpty();
 
-            static bool IsCpfValid(string Cpf)
+            static bool IsCpfValid(string cpf)
             {
                 int[] mult1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
                 int[] mult2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -54,10 +55,13 @@ namespace Data.Validators
                 int sum;
                 int rest;
 
-                if (Cpf.Length != 11)
+                if (cpf.Length != 11)
                     return false;
 
-                hasCpf = Cpf.Substring(0, 9);
+                if (cpf.All(character => character == cpf.First()))
+                    return false;
+
+                hasCpf = cpf.Substring(0, 9);
                 sum = 0;
 
                 for (int i = 0; i < 9; i++)
@@ -89,7 +93,7 @@ namespace Data.Validators
 
                 digit = digit + rest.ToString();
 
-                return Cpf.EndsWith(digit);
+                return cpf.EndsWith(digit);
             }
 
             static bool IsOver18(System.DateTime dateOfBirth)
