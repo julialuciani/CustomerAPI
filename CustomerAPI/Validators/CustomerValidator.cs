@@ -46,10 +46,9 @@ namespace Data.Validators
 
             RuleFor(customer => customer.Number)
                 .NotEmpty();
-
-           
         }
-       public static bool IsCpfValid(string cpf)
+
+        public static bool IsCpfValid(string cpf)
         {
             int[] mult1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] mult2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
