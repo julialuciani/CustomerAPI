@@ -30,7 +30,7 @@ namespace Data.Validators
 
             RuleFor(customer => customer.DateOfBirth)
                 .NotEmpty()
-                .Must(IsOver18).WithMessage("'Customer must be legal age");
+                .Must(AgeRequirementIsMet).WithMessage("'Customer must be legal age");
 
             RuleFor(customer => customer.Country)
                 .NotEmpty();
@@ -99,7 +99,7 @@ namespace Data.Validators
                 return cpf.EndsWith(digit);
             }
 
-            static bool IsOver18(System.DateTime dateOfBirth)
+            static bool AgeRequirementIsMet(System.DateTime dateOfBirth)
             {
                 return dateOfBirth <= System.DateTime.Now.AddYears(-18);
             }
