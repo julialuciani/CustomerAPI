@@ -51,9 +51,10 @@ namespace CustomerAPI.Controllers
                 var listCustomers = _service.GetAll();
                 return Ok(listCustomers);
             }
-            catch
+            catch (Exception exception)
             {
-                return NoContent();
+                var exceptionMessage = exception.InnerException?.Message ?? exception.Message;
+                return Problem(exceptionMessage);
             }
         }
 
