@@ -21,7 +21,7 @@ namespace Data.Validators
 
             RuleFor(customer => customer.Cpf)
                 .NotEmpty()
-                .Must(IsCpfValid).WithMessage("'Cpf' did not match the expected format");
+                .Must(IsCpfValid).WithMessage("'Cpf' did not match the expected format: 00000000000");
 
             RuleFor(customer => customer.Cellphone)
                 .NotEmpty();
