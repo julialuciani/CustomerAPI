@@ -50,8 +50,8 @@ namespace CustomerAPI.Controllers
             {
                 var listCustomers = _service.GetAll();
                 return Ok(listCustomers);
-             }
-            catch 
+            }
+            catch
             {
                 return NoContent();
             }

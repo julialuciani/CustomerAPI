@@ -13,7 +13,7 @@ namespace Data.Validators
 
             RuleFor(customer => customer.Email)
                 .NotEmpty()
-                .EmailAddress().WithMessage("Email is not valId");
+                .EmailAddress().WithMessage("Email is not valid");
 
             RuleFor(customer => customer.EmailConfirmation)
                 .NotEmpty()
@@ -21,14 +21,14 @@ namespace Data.Validators
 
             RuleFor(customer => customer.Cpf)
                 .NotEmpty()
-                .Must(IsCpfValid);
+                .Must(IsCpfValid).WithMessage("'Cpf' did not match the expected format");
 
             RuleFor(customer => customer.Cellphone)
                 .NotEmpty();
 
             RuleFor(customer => customer.DateOfBirth)
                 .NotEmpty()
-                .Must(IsOver18).WithMessage("Customer cannot be registered if he is a minor");
+                .Must(IsOver18).WithMessage("'Customer' must be legal age");
 
             RuleFor(customer => customer.Country)
                 .NotEmpty();
@@ -46,7 +46,7 @@ namespace Data.Validators
                 .NotEmpty();
 
 
-             static bool IsCpfValid(string Cpf)
+            static bool IsCpfValid(string Cpf)
             {
                 int[] mult1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
                 int[] mult2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -58,10 +58,10 @@ namespace Data.Validators
                 if (Cpf.Length != 11)
                     return false;
 
-               hasCpf = Cpf.Substring(0, 9);
+                hasCpf = Cpf.Substring(0, 9);
                 sum = 0;
-    
-               for (int i = 0; i < 9; i++)
+
+                for (int i = 0; i < 9; i++)
                     sum += int.Parse(hasCpf[i].ToString()) * mult1[i];
 
                 rest = sum % 11;

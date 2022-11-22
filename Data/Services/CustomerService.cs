@@ -10,8 +10,8 @@ namespace Data.Services
         {
             var checkingCustomerCpf = _customerList.Any(customerElement => customerElement.Cpf == customer.Cpf);
             var checkingCustomerEmail = _customerList.Any(customerElement => customerElement.Email == customer.Email);
-            if (checkingCustomerCpf == true) throw new ArgumentException("Customer with this cpf already exists");
-            if (checkingCustomerEmail == true) throw new ArgumentException("Customer with this email already exists");
+            if (checkingCustomerCpf == true) throw new ArgumentException($"Customer for Cpf: {customer.Cpf} already exists");
+            if (checkingCustomerEmail == true) throw new ArgumentException($"Customer for Email: {customer.Email} already exists");
 
             customer.Id = _customerList.Count + 1;
             _customerList.Add(customer);
@@ -37,7 +37,7 @@ namespace Data.Services
             if (customerIndex == -1) throw new ArgumentNullException($"Customer not found for Id: {customer.Id}");
 
             if (_customerList.Any((element) => element.Cpf == customer.Cpf && element.Id != customer.Id))
-                throw new ArgumentException($"Customer for Cpf: {customer.Email} already exists!");
+                throw new ArgumentException($"Customer for Cpf: {customer.Cpf} already exists!");
 
             if (_customerList.Any((element) => element.Email == customer.Email && element.Id != customer.Id))
                 throw new ArgumentException($"Customer for Email: {customer.Email} already exists!");
@@ -47,8 +47,8 @@ namespace Data.Services
         }
         public void Delete(long Id)
         {
-            int customerId = _customerList.FindIndex(element => element.Id == Id);
-            if (customerId < 0) throw new ArgumentNullException($"Customer not found for Id: {Id} ");
+            var exists = _customerList.Any(customer => customer.Id == Id);
+            if (!exists) throw new ArgumentNullException($"Customer not found for Id: {Id} ");
             _customerList.RemoveAll(element => element.Id == Id);
         }
     }
