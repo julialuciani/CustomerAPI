@@ -32,6 +32,7 @@ namespace Data.Services
             if (customer != null) return customer;
             throw new ArgumentException($"Customer does not exist for Id: {Id}");
         }
+   
         public void Update(Customer customer)
         {
 
@@ -48,6 +49,7 @@ namespace Data.Services
             _customerList[customerIndex] = customer;
 
         }
+  
         public void Delete(long Id)
         {
             var exists = _customerList.Any(customer => customer.Id == Id);  
