@@ -1,8 +1,10 @@
-using Data.Entities;
 using Data.Services;
 using Data.Validators;
-using FluentValidation;
+using DomainModels.Entities;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
