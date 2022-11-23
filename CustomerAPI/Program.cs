@@ -1,6 +1,7 @@
-using Data.Services;
-using Data.Validators;
+using AppServices.Validators;
 using DomainModels.Entities;
+using DomainServices.Services;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;

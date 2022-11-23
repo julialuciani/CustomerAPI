@@ -1,6 +1,5 @@
-﻿using AppServices.Services;
-using Data.Services;
-using DomainModels.Entities;
+﻿using DomainModels.Entities;
+using DomainServices.Services;
 using System.Collections.Generic;
 
 namespace AppServices.Services
