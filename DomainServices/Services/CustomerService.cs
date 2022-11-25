@@ -38,7 +38,7 @@ namespace DomainServices.Services
 
         public void Update(Customer customer)
         {
-            int customerIndex = _customerList.FindIndex(element => element.Id == customer.Id);
+            var customerIndex = _customerList.FindIndex(element => element.Id == customer.Id);
 
             if (customerIndex == -1) throw new ArgumentNullException($"Customer not found for Id: {customer.Id}");
 
@@ -53,7 +53,7 @@ namespace DomainServices.Services
 
         public void Delete(long Id)
         {
-            Customer customer = GetById(Id);
+            var customer = GetById(Id);
             _customerList.Remove(customer);
         }
     }
