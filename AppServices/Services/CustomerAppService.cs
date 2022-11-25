@@ -1,5 +1,6 @@
 ﻿using DomainModels.Entities;
 using DomainServices.Services;
+using System;
 using System.Collections.Generic;
 
 namespace AppServices.Services
@@ -7,6 +8,11 @@ namespace AppServices.Services
     public class CustomerAppService : ICustomerAppService
     {
         private ICustomerService _customerService;
+     
+        public CustomerAppService(ICustomerService customerService)
+        {
+            _customerService = customerService ?? throw new ArgumentNullException(nameof(customerService));
+        }   
 
         public long Create(Customer customer)
         {

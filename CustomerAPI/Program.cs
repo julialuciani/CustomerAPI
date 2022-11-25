@@ -1,3 +1,4 @@
+using AppServices.Services;
 using AppServices.Validators;
 using DomainModels.Entities;
 using DomainServices.Services;
@@ -13,6 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ICustomerService, CustomerService>();
+builder.Services.AddTransient<ICustomerAppService, CustomerAppService>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddScoped<IValidator<Customer>, CustomerValidator>();
 
