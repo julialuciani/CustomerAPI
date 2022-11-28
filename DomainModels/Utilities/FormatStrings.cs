@@ -1,4 +1,4 @@
-﻿namespace AppServices.Utilities
+﻿namespace DomainModels.Utilities
 {
     public static class FormatStrings
     {

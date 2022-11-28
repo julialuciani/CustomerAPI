@@ -1,4 +1,5 @@
-﻿using AppServices.Utilities;
+﻿using DomainModels.Utilities;
+using System;
 
 namespace DomainModels.Entities
 {

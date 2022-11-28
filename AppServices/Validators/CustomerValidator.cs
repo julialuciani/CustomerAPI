@@ -1,4 +1,4 @@
-﻿using AppServices.Utilities;
+﻿using DomainModels.Utilities;
 using DomainModels.Entities;
 using FluentValidation;
 using System;
