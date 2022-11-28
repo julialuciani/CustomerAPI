@@ -1,6 +1,7 @@
-﻿using Data.Entities;
-using Data.Services;
+﻿using AppServices.Services;
+using DomainModels.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace CustomerAPI.Controllers
 {
@@ -8,11 +9,11 @@ namespace CustomerAPI.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private ICustomerService _service;
+        private ICustomerAppService _customerAppService;
 
-        public CustomerController(ICustomerService service)
+        public CustomerController(ICustomerAppService customerAppService)
         {
-            _service = service ?? throw new ArgumentNullException(nameof(service));
+            _customerAppService = customerAppService ?? throw new ArgumentNullException(nameof(customerAppService));
         }
 
         [HttpPost]
@@ -20,7 +21,7 @@ namespace CustomerAPI.Controllers
         {
             try
             {
-                _service.Create(customer);
+                _customerAppService.Create(customer);
                 return Created("Id: ", customer.Id);
             }
             catch (ArgumentException exception)
@@ -34,7 +35,7 @@ namespace CustomerAPI.Controllers
         {
             try
             {
-                var customer = _service.GetById(Id);
+                var customer = _customerAppService.GetById(Id);
                 return Ok(customer);
             }
             catch (ArgumentNullException exception)
@@ -48,7 +49,7 @@ namespace CustomerAPI.Controllers
         {
             try
             {
-                var listCustomers = _service.GetAll();
+                var listCustomers = _customerAppService.GetAll();
                 return Ok(listCustomers);
             }
             catch (Exception exception)
@@ -63,7 +64,7 @@ namespace CustomerAPI.Controllers
         {
             try
             {
-                _service.Update(customer);
+                _customerAppService.Update(customer);
                 return Ok();
             }
             catch (ArgumentNullException exception)
@@ -81,7 +82,7 @@ namespace CustomerAPI.Controllers
         {
             try
             {
-                _service.Delete(Id);
+                _customerAppService.Delete(Id);
                 return NoContent();
             }
             catch (ArgumentException exception)
